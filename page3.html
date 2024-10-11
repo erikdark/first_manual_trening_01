@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин товаров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .product {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .product button:hover {
+            background-color: #0056b3;
+        }
+        .cart {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-item button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .cart-item button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product">
+            <img src="product1.jpg" alt="Товар 1">
+            <h3>Товар 1</h3>
+            <p>Цена: $10</p>
+            <button onclick="addToCart('Товар 1', 10)">Добавить в корзину</button>
+        </div>
+        <div class="product">
+            <img src="product2.jpg" alt="Товар 2">
+            <h3>Товар 2</h3>
+            <p>Цена: $20</p>
+            <button onclick="addToCart('Товар 2', 20)">Добавить в корзину</button>
+        </div>
+        <div class="product">
+            <img src="product3.jpg" alt="Товар 3">
+            <h3>Товар 3</h3>
+            <p>Цена: $30</p>
+            <button onclick="addToCart('Товар 3', 30)">Добавить в корзину</button>
+        </div>
+    </div>
+
+    <div class="cart" id="cart">
+        <h2>Корзина</h2>
+        <div id="cartItems"></div>
+        <p>Итого: $<span id="total">0</span></p>
+    </div>
+
+    <script>
+        let cartItems = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            
+            if (name === 'Товар 3') {
+                return;
+            }
+
+            
+            if (cartItems.length > 0) {
+                return;
+            }
+
+            
+            if (name === 'Товар 1') {
+                price = 15;
+            }
+
+            cartItems.push({ name, price });
+            total += price;
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+           
+            return;
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = '';
+            cartItems.forEach((item, index) => {
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.className = 'cart-item';
+                cartItemDiv.innerHTML = `
+                    <span>${item.name} - $${item.price}</span>
+                    <button onclick="removeFromCart(${index})">Удалить</button>
+                `;
+                cartItemsDiv.appendChild(cartItemDiv);
+            });
+            document.getElementById('total').innerText = total;
+        }
+    </script>
+</body>
+</html>
